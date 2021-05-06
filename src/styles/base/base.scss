@@ -27,6 +27,22 @@
       }
     }
   }
+
+  .rooms_grid {
+    .rooms_header {
+      font-size: 50px !important;
+      margin-top: 1em !important;
+      font-family: raleway-black, sans-serif;
+      font-weight: 900 !important;
+    }
+
+    .room_card {
+      width: 100% !important;
+      -webkit-box-shadow: 7px 9px 25px -8px rgba(0, 0, 0, 0.39);
+      -moz-box-shadow: 7px 9px 25px -8px rgba(0, 0, 0, 0.39);
+      box-shadow: 7px 9px 25px -8px rgba(0, 0, 0, 0.39);
+    }
+  }
 }
 
 // Mobile Screen

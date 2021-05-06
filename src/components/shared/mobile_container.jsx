@@ -3,6 +3,8 @@ import MainHeader from './main_header';
 import img from '../../images/home_bg.png';
 import logo from '../../images/logo.png';
 import Filters from './filters';
+import RoomCard from './room_card';
+import * as R from 'ramda';
 import {
   Container,
   Menu,
@@ -11,10 +13,11 @@ import {
   Sidebar,
   Image,
   Search,
+  Header,
   Grid,
 } from 'semantic-ui-react';
 
-const MobileContainer = ({ children, media }) => {
+const MobileContainer = ({ rooms, children, media }) => {
   const [sidebarOpened, setSidebarOpened] = useState(false);
   const [filtersOpened, setFiltersOpened] = useState(false);
   const Media = media;
@@ -78,6 +81,29 @@ const MobileContainer = ({ children, media }) => {
             </Grid>
             {filtersOpened && <Filters />}
             <MainHeader mobile />
+          </Segment>
+
+          <Segment vertical className='rooms_grid'>
+            <Grid container stackable verticalAlign='middle'>
+              <Grid.Row textAlign='center'>
+                <Grid.Column>
+                  <Header as='h3' style={{ fontSize: '2em' }}>
+                    Viviendas
+                  </Header>
+                </Grid.Column>
+              </Grid.Row>
+
+              {R.map(
+                (room) => (
+                  <Grid.Row key={room.id}>
+                    <Grid.Column>
+                      <RoomCard data={room.attributes} />
+                    </Grid.Column>
+                  </Grid.Row>
+                ),
+                rooms,
+              )}
+            </Grid>
           </Segment>
 
           {children}

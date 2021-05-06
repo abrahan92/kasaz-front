@@ -2,9 +2,19 @@ import React, { useState } from 'react';
 import MainHeader from './main_header';
 import img from '../../images/home_bg.png';
 import logo from '../../images/logo.png';
-import { Container, Menu, Segment, Visibility, Image } from 'semantic-ui-react';
+import RoomCard from './room_card';
+import * as R from 'ramda';
+import {
+  Container,
+  Menu,
+  Segment,
+  Visibility,
+  Image,
+  Grid,
+  Header,
+} from 'semantic-ui-react';
 
-const DesktopContainer = ({ children, media }) => {
+const DesktopContainer = ({ rooms, children, media }) => {
   const [fixed, setFixed] = useState(false);
 
   const Media = media;
@@ -48,6 +58,47 @@ const DesktopContainer = ({ children, media }) => {
         </Segment>
       </Visibility>
 
+      <Grid textAlign='center' className='rooms_grid'>
+        <Grid.Row>
+          <Header as='h1' color='black' className='rooms_header'>
+            Viviendas
+          </Header>
+        </Grid.Row>
+
+        <Grid.Row columns={4}>
+          {R.map(
+            (room) => (
+              <Grid.Column key={room.id}>
+                <RoomCard data={room.attributes} />
+              </Grid.Column>
+            ),
+            rooms,
+          )}
+        </Grid.Row>
+      </Grid>
+
+      {/* <Segment vertical className='rooms_grid'>
+        <Grid container stackable verticalAlign='middle'>
+          <Grid.Row textAlign='center'>
+            <Grid.Column>
+              <Header as='h3' style={{ fontSize: '2em' }}>
+                Viviendas
+              </Header>
+            </Grid.Column>
+          </Grid.Row>
+
+          {R.map(
+            (room) => (
+              <Grid.Row key={room.id}>
+                <Grid.Column>
+                  <RoomCard data={room.attributes} />
+                </Grid.Column>
+              </Grid.Row>
+            ),
+            rooms,
+          )}
+        </Grid>
+      </Segment> */}
       {children}
     </Media>
   );

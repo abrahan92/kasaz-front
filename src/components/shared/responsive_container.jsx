@@ -3,7 +3,7 @@ import { createMedia } from '@artsy/fresnel';
 import DesktopContainer from './desktop_container';
 import MobileContainer from './mobile_container';
 
-const ResponsiveContainer = ({ children }) => {
+const ResponsiveContainer = ({ rooms, children }) => {
   const { MediaContextProvider, Media } = createMedia({
     breakpoints: {
       mobile: 0,
@@ -14,8 +14,8 @@ const ResponsiveContainer = ({ children }) => {
 
   return (
     <MediaContextProvider>
-      <DesktopContainer children={children} media={Media} />
-      <MobileContainer children={children} media={Media} />
+      <DesktopContainer rooms={rooms} children={children} media={Media} />
+      <MobileContainer rooms={rooms} children={children} media={Media} />
     </MediaContextProvider>
   );
 };

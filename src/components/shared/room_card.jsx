@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Icon, Button } from 'semantic-ui-react';
-import img from '../../images/1.jpg';
 
 const RoomCard = ({ data }) => {
   const extra = (
@@ -25,7 +24,7 @@ const RoomCard = ({ data }) => {
   return (
     <Card
       className='room_card'
-      image={img}
+      image={data.picture}
       header={`${data.price} €`}
       meta={`${Math.round(data.price / data.sqm)} €/m2`}
       description={data.title}
