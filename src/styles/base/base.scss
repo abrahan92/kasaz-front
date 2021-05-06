@@ -31,6 +31,57 @@
 
 // Mobile Screen
 @media only screen and (max-width: 767px) {
+  .mobile_top_grid {
+    margin-bottom: 1em;
+  }
+
+  .filter_grid_container {
+    .rooms_selector {
+      button {
+        background-color: white;
+        border: 1px solid black;
+      }
+      .active {
+        background-color: #41af68 !important;
+        border: 1px solid #41af68;
+        color: white !important;
+      }
+    }
+
+    background-color: white;
+    i.icon.exchange:before {
+      font-size: 15px !important;
+      color: #41af68;
+    }
+    .dropdown {
+      min-width: 100% !important;
+
+      .icon:before {
+        float: right !important;
+      }
+    }
+  }
+
+  .filter_grid {
+    background-color: #722aa0;
+    margin-top: 12em;
+
+    .search_filter {
+      margin-left: 1em;
+      .input {
+        width: 100% !important;
+        height: 2em !important;
+      }
+    }
+
+    .filter_toggle {
+      margin-top: 0.2em;
+      .filter_icon:before {
+        color: #41af68 !important;
+      }
+    }
+  }
+
   .menu {
     border: none !important;
     i::before {
