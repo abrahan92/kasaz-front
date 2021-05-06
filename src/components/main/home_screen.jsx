@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ResponsiveContainer from '../shared/responsive_container';
 import { Grid, Segment, Header } from 'semantic-ui-react';
 import RoomCard from './room_card';
+import { roomService } from '../../services/room_service';
 import * as R from 'ramda';
-import { data } from 'jquery';
 
 const HomeScreen = () => {
-  const rooms = [
-    {
-      id: 1,
-      title: 'Piso exterior y en buen estado con ascensor en Sant Marti',
-      price: 280000,
-      sqm: 185,
-      bedrooms: 3,
-      bathrooms: 4,
-    },
-  ];
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    roomService
+      .get_rooms()
+      .then((res) => {
+        setRooms(res.data);
+      })
+      .catch((err) => {
+        setRooms([]);
+      });
+  }, []);
 
   return (
     <ResponsiveContainer>
@@ -33,7 +35,7 @@ const HomeScreen = () => {
             (room) => (
               <Grid.Row key={room.id}>
                 <Grid.Column>
-                  <RoomCard data={room} />
+                  <RoomCard data={room.attributes} />
                 </Grid.Column>
               </Grid.Row>
             ),
