@@ -1,5 +1,6 @@
 import React from 'react';
 import { createMedia } from '@artsy/fresnel';
+import DesktopContainer from './desktop_container';
 
 const ResponsiveContainer = ({ children }) => {
   const { MediaContextProvider } = createMedia({
@@ -10,7 +11,11 @@ const ResponsiveContainer = ({ children }) => {
     },
   });
 
-  return <MediaContextProvider />;
+  return (
+    <MediaContextProvider>
+      <DesktopContainer children={children} />
+    </MediaContextProvider>
+  );
 };
 
 export default ResponsiveContainer;
