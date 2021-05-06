@@ -10,16 +10,10 @@ import {
   Visibility,
 } from 'semantic-ui-react';
 
-const DesktopContainer = ({ children }) => {
+const DesktopContainer = ({ children, media }) => {
   const [fixed, setFixed] = useState(false);
 
-  const { Media } = createMedia({
-    breakpoints: {
-      mobile: 0,
-      tablet: 768,
-      computer: 1024,
-    },
-  });
+  const Media = media;
 
   return (
     <Media greaterThan='mobile'>
