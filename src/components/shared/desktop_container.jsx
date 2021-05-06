@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-import { createMedia } from '@artsy/fresnel';
 import MainHeader from './main_header';
 import img from '../../images/home_bg.png';
-import {
-  Button,
-  Container,
-  Menu,
-  Segment,
-  Visibility,
-} from 'semantic-ui-react';
+import logo from '../../images/logo.png';
+import { Container, Menu, Segment, Visibility, Image } from 'semantic-ui-react';
 
 const DesktopContainer = ({ children, media }) => {
   const [fixed, setFixed] = useState(false);
@@ -35,31 +29,18 @@ const DesktopContainer = ({ children, media }) => {
           vertical
         >
           <Menu
-            fixed={fixed ? 'top' : null}
+            fixed='top'
             inverted={!fixed}
             pointing={!fixed}
             secondary={!fixed}
             size='large'
           >
-            <Container>
-              <Menu.Item as='a' active>
-                Home
+            <Container className='menu_desktop'>
+              <Menu.Item as='a'>
+                <Image src={logo} className='logo_mobile' />
               </Menu.Item>
-              <Menu.Item as='a'>Work</Menu.Item>
-              <Menu.Item as='a'>Company</Menu.Item>
-              <Menu.Item as='a'>Careers</Menu.Item>
-              <Menu.Item position='right'>
-                <Button as='a' inverted={!fixed}>
-                  Log in
-                </Button>
-                <Button
-                  as='a'
-                  inverted={!fixed}
-                  primary={fixed}
-                  style={{ marginLeft: '0.5em' }}
-                >
-                  Sign Up
-                </Button>
+              <Menu.Item position='right' style={{ color: 'black' }}>
+                <h4>Viviendas</h4>
               </Menu.Item>
             </Container>
           </Menu>

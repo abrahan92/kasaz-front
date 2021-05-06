@@ -1,6 +1,40 @@
+// Desktop Screen
 @media only screen and (min-width: 1200px) {
   .ui.container {
     width: 1127px;
     margin-left: 0 !important;
+  }
+
+  .menu {
+    background-color: white !important;
+
+    .menu_desktop {
+      width: 100% !important;
+      .right {
+        h4 {
+          margin-right: 10em !important;
+          padding-bottom: 0.5em !important;
+          cursor: pointer;
+          font-family: raleway-black, sans-serif;
+          font-weight: 900 !important;
+          font-size: 1em;
+          color: rgb(72, 72, 72);
+        }
+      }
+
+      .logo_mobile {
+        margin-left: 5em !important;
+      }
+    }
+  }
+}
+
+// Mobile Screen
+@media only screen and (max-width: 767px) {
+  .menu {
+    border: none !important;
+    i::before {
+      color: #41af68 !important;
+    }
   }
 }

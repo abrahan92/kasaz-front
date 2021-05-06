@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { createMedia } from '@artsy/fresnel';
 import MainHeader from './main_header';
 import img from '../../images/home_bg.png';
+import logo from '../../images/logo.png';
 import {
-  Button,
   Container,
   Menu,
   Segment,
   Icon,
   Sidebar,
+  Image,
 } from 'semantic-ui-react';
 
 const MobileContainer = ({ children, media }) => {
@@ -27,13 +27,8 @@ const MobileContainer = ({ children, media }) => {
           visible={sidebarOpened}
         >
           <Menu.Item as='a' active>
-            Home
+            Viviendas
           </Menu.Item>
-          <Menu.Item as='a'>Work</Menu.Item>
-          <Menu.Item as='a'>Company</Menu.Item>
-          <Menu.Item as='a'>Careers</Menu.Item>
-          <Menu.Item as='a'>Log in</Menu.Item>
-          <Menu.Item as='a'>Sign Up</Menu.Item>
         </Sidebar>
 
         <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -54,13 +49,8 @@ const MobileContainer = ({ children, media }) => {
                 <Menu.Item onClick={() => setSidebarOpened(true)}>
                   <Icon name='sidebar' />
                 </Menu.Item>
-                <Menu.Item position='right'>
-                  <Button as='a' inverted>
-                    Log in
-                  </Button>
-                  <Button as='a' inverted style={{ marginLeft: '0.5em' }}>
-                    Sign Up
-                  </Button>
+                <Menu.Item position='left'>
+                  <Image src={logo} className='logo_mobile' />
                 </Menu.Item>
               </Menu>
             </Container>
