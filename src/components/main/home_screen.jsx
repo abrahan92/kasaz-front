@@ -1,7 +1,8 @@
 import React from 'react';
+import ResponsiveContainer from '../shared/responsive_container';
 
 const HomeScreen = () => {
-  return <h1>Home</h1>;
+  return <ResponsiveContainer />;
 };
 
 export default HomeScreen;
