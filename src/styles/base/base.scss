@@ -88,4 +88,15 @@
       color: #41af68 !important;
     }
   }
+
+  .rooms_grid {
+    margin-top: 1em !important;
+
+    .room_card {
+      width: 100% !important;
+      -webkit-box-shadow: 7px 9px 25px -8px rgba(0, 0, 0, 0.39);
+      -moz-box-shadow: 7px 9px 25px -8px rgba(0, 0, 0, 0.39);
+      box-shadow: 7px 9px 25px -8px rgba(0, 0, 0, 0.39);
+    }
+  }
 }

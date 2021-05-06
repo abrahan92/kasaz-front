@@ -64,37 +64,37 @@ const Filters = () => {
             <Button.Group>
               <Button
                 onClick={() => setRooms(0)}
-                className={rooms === 0 && 'active'}
+                className={rooms === 0 ? 'active' : ''}
               >
                 Todos
               </Button>
               <Button
                 onClick={() => setRooms(1)}
-                className={rooms === 1 && 'active'}
+                className={rooms === 1 ? 'active' : ''}
               >
                 1+
               </Button>
               <Button
                 onClick={() => setRooms(2)}
-                className={rooms === 2 && 'active'}
+                className={rooms === 2 ? 'active' : ''}
               >
                 2+
               </Button>
               <Button
                 onClick={() => setRooms(3)}
-                className={rooms === 3 && 'active'}
+                className={rooms === 3 ? 'active' : ''}
               >
                 3+
               </Button>
               <Button
                 onClick={() => setRooms(4)}
-                className={rooms === 4 && 'active'}
+                className={rooms === 4 ? 'active' : ''}
               >
                 4+
               </Button>
               <Button
                 onClick={() => setRooms(5)}
-                className={rooms === 5 && 'active'}
+                className={rooms === 5 ? 'active' : ''}
               >
                 5+
               </Button>
