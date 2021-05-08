@@ -16,6 +16,20 @@ export const setPropertiesState = (properties) => {
   };
 };
 
+export const setNextPageState = (next_page) => {
+  return {
+    type: t.SET_NEXT_PAGE_STATE,
+    payload: next_page,
+  };
+};
+
+export const setCurrentPageState = (current_page) => {
+  return {
+    type: t.SET_CURRENT_PAGE_STATE,
+    payload: current_page,
+  };
+};
+
 export const setPropertiesFilteredState = (properties_filtered) => {
   return {
     type: t.SET_PROPERTIES_FILTERED_STATE,
@@ -30,11 +44,11 @@ export const setFilterState = (filters) => {
   };
 };
 
-export const getProperties = () => (dispatch) => {
+export const getProperties = (page) => (dispatch) => {
   dispatch(setLoadingState(true));
 
   roomService
-    .get_rooms()
+    .get_rooms(page)
     .then((res) => {
       dispatch(getFilters());
       dispatch(setLoadingState(false));
@@ -54,6 +68,7 @@ export const getFilters = () => (dispatch) => {
     .get_filters()
     .then((res) => {
       dispatch(setFilterState(res.data));
+      dispatch(setLoadingState(false));
     })
     .catch((err) => {
       dispatch(setFilterState(propertyInitialState.filters));

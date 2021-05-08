@@ -30,6 +30,17 @@ export const propertyReducer = (state = propertyInitialState, action) => {
         ...state,
         filters: action.payload,
       };
+
+    case t.SET_CURRENT_PAGE_STATE:
+      return {
+        ...state,
+        current_page: action.payload,
+      };
+    case t.SET_NEXT_PAGE_STATE:
+      return {
+        ...state,
+        next_page: action.payload,
+      };
     default:
       return state;
   }

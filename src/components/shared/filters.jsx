@@ -3,9 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Header, Select, Segment, Button } from 'semantic-ui-react';
 import {
   setFilterState,
-  setPropertiesState,
   setPropertiesFilteredState,
-  getProperties,
+  getFilters,
 } from '../../redux/actions';
 import * as R from 'ramda';
 
@@ -25,7 +24,8 @@ const Filters = () => {
   };
 
   const cleanFilters = () => {
-    dispatch(getProperties());
+    dispatch(getFilters());
+    dispatch(setPropertiesFilteredState(properties));
   };
 
   const checkFilters = (baseFilters, property) => {

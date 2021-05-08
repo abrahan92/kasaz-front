@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { API_URL } from '../config';
 
-function get_rooms() {
+function get_rooms(page) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${API_URL}/properties`)
+      .get(`${API_URL}/properties?page=${page}`)
       .then((res) => {
         resolve(res.data);
       })

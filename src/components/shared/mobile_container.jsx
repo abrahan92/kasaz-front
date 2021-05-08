@@ -3,12 +3,9 @@ import MainHeader from './main_header';
 import img from '../../images/home_bg.png';
 import logo from '../../images/logo.png';
 import Filters from './filters';
-import RoomCard from './room_card';
-import Loading from './loading';
-import EmptyRooms from '../shared/empty_rooms';
+import InfiniteScroll from './infinite_scroll';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFilterState } from '../../redux/actions';
-import * as R from 'ramda';
 import {
   Container,
   Menu,
@@ -17,13 +14,11 @@ import {
   Sidebar,
   Image,
   Search,
-  Header,
   Grid,
 } from 'semantic-ui-react';
 
 const MobileContainer = ({ rooms, children, media }) => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.baseReducer);
   const { filters } = useSelector((state) => state.propertyReducer);
   const [sidebarOpened, setSidebarOpened] = useState(false);
   const Media = media;
@@ -55,6 +50,7 @@ const MobileContainer = ({ rooms, children, media }) => {
 
         <Sidebar.Pusher dimmed={sidebarOpened}>
           <Segment
+            id='mobile_header'
             inverted
             textAlign='center'
             style={{
@@ -98,34 +94,7 @@ const MobileContainer = ({ rooms, children, media }) => {
             <MainHeader mobile />
           </Segment>
 
-          <Segment vertical className='rooms_grid'>
-            <Grid container stackable verticalAlign='middle'>
-              <Grid.Row textAlign='center'>
-                <Grid.Column>
-                  <Header as='h3' style={{ fontSize: '2em' }}>
-                    Viviendas
-                  </Header>
-                </Grid.Column>
-              </Grid.Row>
-
-              {loading ? (
-                <Loading />
-              ) : R.isEmpty(rooms) ? (
-                <EmptyRooms />
-              ) : (
-                R.map(
-                  (room) => (
-                    <Grid.Row key={room.id}>
-                      <Grid.Column>
-                        <RoomCard data={room.attributes} />
-                      </Grid.Column>
-                    </Grid.Row>
-                  ),
-                  rooms,
-                )
-              )}
-            </Grid>
-          </Segment>
+          <InfiniteScroll filters={filters} />
 
           {children}
         </Sidebar.Pusher>
