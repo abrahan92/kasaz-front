@@ -4,6 +4,7 @@ export const baseInitialState = {
 
 export const propertyInitialState = {
   properties: [],
+  properties_filtered: [],
   filters: {
     opened: false,
     min_price: 0,

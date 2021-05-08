@@ -20,6 +20,11 @@ export const propertyReducer = (state = propertyInitialState, action) => {
         ...state,
         properties: action.payload,
       };
+    case t.SET_PROPERTIES_FILTERED_STATE:
+      return {
+        ...state,
+        properties_filtered: action.payload,
+      };
     case t.SET_FILTER_STATE:
       return {
         ...state,

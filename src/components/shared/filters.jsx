@@ -4,13 +4,16 @@ import { Grid, Header, Select, Segment, Button } from 'semantic-ui-react';
 import {
   setFilterState,
   setPropertiesState,
+  setPropertiesFilteredState,
   getProperties,
 } from '../../redux/actions';
 import * as R from 'ramda';
 
 const Filters = () => {
   const dispatch = useDispatch();
-  const { filters, properties } = useSelector((state) => state.propertyReducer);
+  const { filters, properties, properties_filtered } = useSelector(
+    (state) => state.propertyReducer,
+  );
 
   const setFilters = (key, value) => {
     let baseFilters = filters;
@@ -25,11 +28,13 @@ const Filters = () => {
     dispatch(getProperties());
   };
 
-  const applyFilter = () => {
-    let baseFilters = filters;
-    let baseProperties = properties;
-
-    baseProperties = R.filter((property) => {
+  const checkFilters = (baseFilters, property) => {
+    if (
+      !R.isNil(baseFilters.min_price) &&
+      !R.isNil(baseFilters.max_price) &&
+      !R.isNil(baseFilters.min_size) &&
+      !R.isNil(baseFilters.max_size)
+    ) {
       return (
         baseFilters.min_price <= property.attributes.price &&
         property.attributes.price <= baseFilters.max_price &&
@@ -37,6 +42,38 @@ const Filters = () => {
         property.attributes.sqm <= baseFilters.max_size &&
         baseFilters.rooms <= property.attributes.bedrooms
       );
+    } else if (
+      (R.isNil(baseFilters.min_price) || R.isNil(baseFilters.max_price)) &&
+      !R.isNil(baseFilters.min_size) &&
+      !R.isNil(baseFilters.max_size)
+    ) {
+      return (
+        baseFilters.min_size <= property.attributes.sqm &&
+        property.attributes.sqm <= baseFilters.max_size &&
+        baseFilters.rooms <= property.attributes.bedrooms
+      );
+    } else if (
+      (R.isNil(baseFilters.min_size) || R.isNil(baseFilters.max_size)) &&
+      !R.isNil(baseFilters.min_price) &&
+      !R.isNil(baseFilters.max_price)
+    ) {
+      return (
+        baseFilters.min_price <= property.attributes.price &&
+        property.attributes.price <= baseFilters.max_price &&
+        baseFilters.rooms <= property.attributes.bedrooms
+      );
+    } else {
+      return baseFilters.rooms <= property.attributes.bedrooms;
+    }
+  };
+
+  const applyFilter = () => {
+    let baseFilters = filters;
+    let baseProperties = properties;
+    let basePropertiesFiltered = properties_filtered;
+
+    basePropertiesFiltered = R.filter((property) => {
+      return checkFilters(baseFilters, property);
     })(baseProperties);
 
     baseFilters = {
@@ -45,7 +82,7 @@ const Filters = () => {
     };
 
     dispatch(setFilterState(baseFilters));
-    dispatch(setPropertiesState(baseProperties));
+    dispatch(setPropertiesFilteredState(basePropertiesFiltered));
   };
 
   const setMinPrice = (e, target) => {

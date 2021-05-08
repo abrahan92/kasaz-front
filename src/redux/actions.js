@@ -16,6 +16,13 @@ export const setPropertiesState = (properties) => {
   };
 };
 
+export const setPropertiesFilteredState = (properties_filtered) => {
+  return {
+    type: t.SET_PROPERTIES_FILTERED_STATE,
+    payload: properties_filtered,
+  };
+};
+
 export const setFilterState = (filters) => {
   return {
     type: t.SET_FILTER_STATE,
@@ -32,9 +39,11 @@ export const getProperties = () => (dispatch) => {
       dispatch(getFilters());
       dispatch(setLoadingState(false));
       dispatch(setPropertiesState(res.data));
+      dispatch(setPropertiesFilteredState(res.data));
     })
     .catch((err) => {
       dispatch(setPropertiesState([]));
+      dispatch(setPropertiesFilteredState([]));
     });
 };
 
