@@ -4,6 +4,8 @@ import img from '../../images/home_bg.png';
 import logo from '../../images/logo.png';
 import Filters from './filters';
 import RoomCard from './room_card';
+import Loading from './loading';
+import { useSelector } from 'react-redux';
 import * as R from 'ramda';
 import {
   Container,
@@ -18,6 +20,7 @@ import {
 } from 'semantic-ui-react';
 
 const MobileContainer = ({ rooms, children, media }) => {
+  const { loading } = useSelector((state) => state.baseReducer);
   const [sidebarOpened, setSidebarOpened] = useState(false);
   const [filtersOpened, setFiltersOpened] = useState(false);
   const Media = media;
@@ -93,15 +96,19 @@ const MobileContainer = ({ rooms, children, media }) => {
                 </Grid.Column>
               </Grid.Row>
 
-              {R.map(
-                (room) => (
-                  <Grid.Row key={room.id}>
-                    <Grid.Column>
-                      <RoomCard data={room.attributes} />
-                    </Grid.Column>
-                  </Grid.Row>
-                ),
-                rooms,
+              {loading ? (
+                <Loading />
+              ) : (
+                R.map(
+                  (room) => (
+                    <Grid.Row key={room.id}>
+                      <Grid.Column>
+                        <RoomCard data={room.attributes} />
+                      </Grid.Column>
+                    </Grid.Row>
+                  ),
+                  rooms,
+                )
               )}
             </Grid>
           </Segment>

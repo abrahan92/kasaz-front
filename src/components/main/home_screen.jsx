@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ResponsiveContainer from '../shared/responsive_container';
-import { roomService } from '../../services/room_service';
+import { getProperties } from '../../redux/actions';
 
 const HomeScreen = () => {
-  const [rooms, setRooms] = useState([]);
+  const dispatch = useDispatch();
+  const { properties } = useSelector((state) => state.propertyReducer);
 
   useEffect(() => {
-    roomService
-      .get_rooms()
-      .then((res) => {
-        setRooms(res.data);
-      })
-      .catch((err) => {
-        setRooms([]);
-      });
-  }, []);
+    dispatch(getProperties());
+  }, [dispatch]);
 
-  return <ResponsiveContainer rooms={rooms} />;
+  return <ResponsiveContainer rooms={properties} />;
 };
 
 export default HomeScreen;
