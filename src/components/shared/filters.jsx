@@ -101,6 +101,13 @@ const Filters = () => {
             </Button.Group>
           </Grid.Column>
         </Grid.Row>
+        <Grid.Row textAlign='center'>
+          <Grid.Column>
+            <Button className='btn_search_room' primary>
+              Ver inmuebles
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
       </Grid>
     </Segment>
   );
