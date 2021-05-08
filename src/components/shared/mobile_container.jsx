@@ -5,7 +5,8 @@ import logo from '../../images/logo.png';
 import Filters from './filters';
 import RoomCard from './room_card';
 import Loading from './loading';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFilterState } from '../../redux/actions';
 import * as R from 'ramda';
 import {
   Container,
@@ -20,10 +21,20 @@ import {
 } from 'semantic-ui-react';
 
 const MobileContainer = ({ rooms, children, media }) => {
+  const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.baseReducer);
+  const { filters } = useSelector((state) => state.propertyReducer);
   const [sidebarOpened, setSidebarOpened] = useState(false);
-  const [filtersOpened, setFiltersOpened] = useState(false);
   const Media = media;
+
+  const setOpen = (value) => {
+    let baseFilters = filters;
+    baseFilters = {
+      ...baseFilters,
+      opened: value,
+    };
+    dispatch(setFilterState(baseFilters));
+  };
 
   return (
     <Media as={Sidebar.Pushable} at='mobile'>
@@ -73,16 +84,16 @@ const MobileContainer = ({ rooms, children, media }) => {
                 />
               </Grid.Column>
               <Grid.Column width={4} className='filter_toggle'>
-                <h4 onClick={() => setFiltersOpened(!filtersOpened)}>
+                <h4 onClick={() => setOpen(!filters.opened)}>
                   Filtros{' '}
                   <Icon
                     className='filter_icon'
-                    name={filtersOpened ? 'chevron up' : 'chevron down'}
+                    name={filters.opened ? 'chevron up' : 'chevron down'}
                   />
                 </h4>
               </Grid.Column>
             </Grid>
-            {filtersOpened && <Filters />}
+            {filters.opened && <Filters />}
             <MainHeader mobile />
           </Segment>
 
