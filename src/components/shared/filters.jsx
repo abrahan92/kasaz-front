@@ -1,12 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Header, Select, Segment, Button } from 'semantic-ui-react';
-import { setFilterState } from '../../redux/actions';
+import {
+  setFilterState,
+  setPropertiesState,
+  getProperties,
+} from '../../redux/actions';
 import * as R from 'ramda';
 
 const Filters = () => {
   const dispatch = useDispatch();
-  const { filters } = useSelector((state) => state.propertyReducer);
+  const { filters, properties } = useSelector((state) => state.propertyReducer);
 
   const setFilters = (key, value) => {
     let baseFilters = filters;
@@ -18,15 +22,30 @@ const Filters = () => {
   };
 
   const cleanFilters = () => {
-    let baseFilters = {
-      ...filters,
-      min_price: null,
-      max_price: null,
-      min_size: null,
-      max_size: null,
-      rooms: null,
+    dispatch(getProperties());
+  };
+
+  const applyFilter = () => {
+    let baseFilters = filters;
+    let baseProperties = properties;
+
+    baseProperties = R.filter((property) => {
+      return (
+        baseFilters.min_price <= property.attributes.price &&
+        property.attributes.price <= baseFilters.max_price &&
+        baseFilters.min_size <= property.attributes.sqm &&
+        property.attributes.sqm <= baseFilters.max_size &&
+        baseFilters.rooms <= property.attributes.bedrooms
+      );
+    })(baseProperties);
+
+    baseFilters = {
+      ...baseFilters,
+      opened: false,
     };
+
     dispatch(setFilterState(baseFilters));
+    dispatch(setPropertiesState(baseProperties));
   };
 
   const setMinPrice = (e, target) => {
@@ -140,7 +159,11 @@ const Filters = () => {
         </Grid.Row>
         <Grid.Row textAlign='center'>
           <Grid.Column>
-            <Button className='btn_search_room' primary>
+            <Button
+              onClick={() => applyFilter()}
+              className='btn_search_room'
+              primary
+            >
               Ver inmuebles
             </Button>
           </Grid.Column>

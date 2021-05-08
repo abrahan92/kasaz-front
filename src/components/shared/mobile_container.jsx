@@ -5,6 +5,7 @@ import logo from '../../images/logo.png';
 import Filters from './filters';
 import RoomCard from './room_card';
 import Loading from './loading';
+import EmptyRooms from '../shared/empty_rooms';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFilterState } from '../../redux/actions';
 import * as R from 'ramda';
@@ -109,6 +110,8 @@ const MobileContainer = ({ rooms, children, media }) => {
 
               {loading ? (
                 <Loading />
+              ) : R.isEmpty(rooms) ? (
+                <EmptyRooms />
               ) : (
                 R.map(
                   (room) => (
