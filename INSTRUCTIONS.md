@@ -2,7 +2,7 @@
 
 ## Abrahan Mendoza
 
-The purpose of this document is to describe how to run the Ruby script approach based in the requirements located in the README.md file.
+The purpose of this document is to describe how to run the React front app based in the requirements located in the README.md file.
 
 ### Instructions 📄
 
